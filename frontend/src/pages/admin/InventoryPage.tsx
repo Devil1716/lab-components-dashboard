@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Component, ComponentAPI } from '../../api/componentApi';
+import { ComponentAPI } from '../../api/componentApi';
+import type { Component } from '../../api/componentApi';
 import { Plus, Edit2, Trash2, Search, AlertCircle } from 'lucide-react';
 
 const InventoryPage: React.FC = () => {

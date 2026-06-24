@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
 import { IssueService } from '../services/IssueService';
-import { FirebaseIssueRepository } from '../repositories/firebase/FirebaseIssueRepository';
-import { FirebaseComponentRepository } from '../repositories/firebase/FirebaseComponentRepository';
+import { InMemoryIssueRepository } from '../repositories/inmemory/InMemoryIssueRepository';
+import { InMemoryComponentRepository } from '../repositories/inmemory/InMemoryComponentRepository';
+import { InMemoryFineRepository } from '../repositories/inmemory/InMemoryFineRepository';
 
-const issueRepo = new FirebaseIssueRepository();
-const componentRepo = new FirebaseComponentRepository();
-const issueService = new IssueService(issueRepo, componentRepo);
+const issueRepo = new InMemoryIssueRepository();
+const componentRepo = new InMemoryComponentRepository();
+const fineRepo = new InMemoryFineRepository();
+const issueService = new IssueService(issueRepo, componentRepo, fineRepo);
 
 export class IssueController {
   static async issueComponents(req: Request, res: Response) {
@@ -30,9 +32,28 @@ export class IssueController {
 
   static async getBatchTransactions(req: Request, res: Response) {
     try {
-      const { batchId } = req.params;
+      const batchId = req.params.batchId as string;
       const transactions = await issueService.getBatchTransactions(batchId);
       res.json(transactions);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async getAllTransactions(req: Request, res: Response) {
+    try {
+      const transactions = await issueService.getAllTransactions();
+      res.json(transactions);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
+  static async processReturn(req: Request, res: Response) {
+    try {
+      const { transactionId, returnItems } = req.body;
+      await issueService.processReturn(transactionId, returnItems);
+      res.status(200).json({ message: 'Return processed successfully' });
     } catch (error: any) {
       res.status(500).json({ message: error.message });
     }

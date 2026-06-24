@@ -1,15 +1,12 @@
-import * as admin from 'firebase-admin';
+import { getApps, initializeApp, applicationDefault } from 'firebase-admin/app';
+import { getFirestore as getAdminFirestore } from 'firebase-admin/firestore';
+import { getAuth as getAdminAuth } from 'firebase-admin/auth';
 
 export function initializeFirebase() {
-  if (admin.apps.length === 0) {
+  if (getApps().length === 0) {
     try {
-      // For local development, if you have a serviceAccountKey.json, you can use it:
-      // const serviceAccount = require('../../serviceAccountKey.json');
-      // admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
-      
-      // If deployed or using default environment credentials (e.g. GOOGLE_APPLICATION_CREDENTIALS):
-      admin.initializeApp({
-        credential: admin.credential.applicationDefault()
+      initializeApp({
+        credential: applicationDefault()
       });
       console.log('Firebase Admin Initialized successfully.');
     } catch (error) {
@@ -18,5 +15,5 @@ export function initializeFirebase() {
   }
 }
 
-export const getFirestore = () => admin.firestore();
-export const getAuth = () => admin.auth();
+export const getFirestore = () => getAdminFirestore();
+export const getAuth = () => getAdminAuth();

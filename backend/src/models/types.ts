@@ -27,7 +27,7 @@ export interface LabSession {
   status: 'active' | 'completed' | 'cancelled';
 }
 
-export interface Batch {
+export interface LabBatch {
   id?: string;
   semester_id: string;
   lab_id: string;

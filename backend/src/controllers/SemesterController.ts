@@ -1,9 +1,8 @@
 import { Request, Response } from 'express';
 import { SemesterService } from '../services/SemesterService';
-import { FirebaseSemesterRepository } from '../repositories/firebase/FirebaseSemesterRepository';
+import { InMemorySemesterRepository } from '../repositories/inmemory/InMemorySemesterRepository';
 
-// Initialize with Firebase implementation for now
-const semesterRepo = new FirebaseSemesterRepository();
+const semesterRepo = new InMemorySemesterRepository();
 const semesterService = new SemesterService(semesterRepo);
 
 export class SemesterController {
@@ -18,7 +17,7 @@ export class SemesterController {
 
   static async getById(req: Request, res: Response) {
     try {
-      const semester = await semesterService.getSemesterById(req.params.id);
+      const semester = await semesterService.getSemesterById(req.params.id as string);
       if (!semester) return res.status(404).json({ message: 'Semester not found' });
       res.json(semester);
     } catch (error: any) {
@@ -37,7 +36,7 @@ export class SemesterController {
 
   static async update(req: Request, res: Response) {
     try {
-      const semester = await semesterService.updateSemester(req.params.id, req.body);
+      const semester = await semesterService.updateSemester(req.params.id as string, req.body);
       if (!semester) return res.status(404).json({ message: 'Semester not found' });
       res.json(semester);
     } catch (error: any) {
@@ -47,7 +46,7 @@ export class SemesterController {
 
   static async delete(req: Request, res: Response) {
     try {
-      const success = await semesterService.deleteSemester(req.params.id);
+      const success = await semesterService.deleteSemester(req.params.id as string);
       if (!success) return res.status(404).json({ message: 'Semester not found' });
       res.status(204).send();
     } catch (error: any) {

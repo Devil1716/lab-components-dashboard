@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { ComponentService } from '../services/ComponentService';
-import { FirebaseComponentRepository } from '../repositories/firebase/FirebaseComponentRepository';
+import { InMemoryComponentRepository } from '../repositories/inmemory/InMemoryComponentRepository';
 
-const componentRepo = new FirebaseComponentRepository();
+const componentRepo = new InMemoryComponentRepository();
 const componentService = new ComponentService(componentRepo);
 
 export class ComponentController {
@@ -17,7 +17,7 @@ export class ComponentController {
 
   static async getById(req: Request, res: Response) {
     try {
-      const component = await componentService.getComponentById(req.params.id);
+      const component = await componentService.getComponentById(req.params.id as string);
       if (!component) return res.status(404).json({ message: 'Component not found' });
       res.json(component);
     } catch (error: any) {
@@ -36,7 +36,7 @@ export class ComponentController {
 
   static async update(req: Request, res: Response) {
     try {
-      const component = await componentService.updateComponent(req.params.id, req.body);
+      const component = await componentService.updateComponent(req.params.id as string, req.body);
       if (!component) return res.status(404).json({ message: 'Component not found' });
       res.json(component);
     } catch (error: any) {
@@ -46,7 +46,7 @@ export class ComponentController {
 
   static async delete(req: Request, res: Response) {
     try {
-      const success = await componentService.deleteComponent(req.params.id);
+      const success = await componentService.deleteComponent(req.params.id as string);
       if (!success) return res.status(404).json({ message: 'Component not found' });
       res.status(204).send();
     } catch (error: any) {

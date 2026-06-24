@@ -25,13 +25,14 @@ app.get('/api/health', (req, res) => {
 import semesterRoutes from './routes/semesterRoutes';
 import componentRoutes from './routes/componentRoutes';
 import issueRoutes from './routes/issueRoutes';
-
-// app.use('/api/labs', labRoutes);
-// app.use('/api/batches', batchRoutes);
+import labRoutes from './routes/labRoutes';
+import batchRoutes from './routes/batchRoutes';
 
 app.use('/api/semesters', semesterRoutes);
 app.use('/api/components', componentRoutes);
 app.use('/api/issues', issueRoutes);
+app.use('/api/labs', labRoutes);
+app.use('/api/batches', batchRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

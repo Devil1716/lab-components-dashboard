@@ -1,7 +1,11 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import AdminLayout from './components/AdminLayout';
+import DashboardPage from './pages/admin/DashboardPage';
 import InventoryPage from './pages/admin/InventoryPage';
-import StudentPortal from './pages/client/StudentPortal';
+import ReportsPage from './pages/admin/ReportsPage';
+import BatchPage from './pages/admin/BatchPage';
+import SemesterLabPage from './pages/admin/SemesterLabPage';
+import FrontDeskPortal from './pages/admin/FrontDeskPortal';
 
 function App() {
   return (
@@ -21,26 +25,25 @@ function App() {
                 <h2 className="text-2xl text-amity-blue font-bold mb-2">Welcome</h2>
                 <p className="text-gray-600 mb-8">Please select your portal to continue.</p>
                 <div className="flex flex-col space-y-4">
-                  <Link to="/admin" className="bg-amity-blue text-white px-6 py-3 rounded-sm font-medium hover:bg-blue-900 transition flex items-center justify-center shadow-sm">Admin Login</Link>
-                  <Link to="/student" className="bg-amity-yellow text-amity-blue px-6 py-3 rounded-sm font-medium hover:bg-yellow-500 transition flex items-center justify-center shadow-sm">Student Access</Link>
+                  <Link to="/admin" className="bg-amity-blue text-white px-6 py-3 rounded-sm font-medium hover:bg-blue-900 transition flex items-center justify-center shadow-sm">Admin Dashboard</Link>
+                  <Link to="/admin/front-desk" className="bg-amity-yellow text-amity-blue px-6 py-3 rounded-sm font-medium hover:bg-yellow-500 transition flex items-center justify-center shadow-sm">Lab Operations Desk</Link>
                 </div>
               </div>
             </main>
           </div>
         } />
 
+
         {/* Admin Routes */}
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<div>Admin Dashboard Home Placeholder</div>} />
+          <Route index element={<DashboardPage />} />
           <Route path="inventory" element={<InventoryPage />} />
-          <Route path="semesters" element={<div>Semesters Placeholder</div>} />
-          <Route path="batches" element={<div>Batches Placeholder</div>} />
-          <Route path="reports" element={<div>Reports Placeholder</div>} />
+          <Route path="semesters" element={<SemesterLabPage />} />
+          <Route path="batches" element={<BatchPage />} />
+          <Route path="front-desk" element={<FrontDeskPortal />} />
+          <Route path="reports" element={<ReportsPage />} />
           <Route path="settings" element={<div>Settings Placeholder</div>} />
         </Route>
-
-        {/* Student Routes */}
-        <Route path="/student" element={<StudentPortal />} />
       </Routes>
     </BrowserRouter>
   );

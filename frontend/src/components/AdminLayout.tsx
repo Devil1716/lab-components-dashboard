@@ -7,6 +7,7 @@ const AdminLayout: React.FC = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/admin', icon: <LayoutDashboard size={20} /> },
+    { name: 'Operations Desk', path: '/admin/front-desk', icon: <FileText size={20} /> },
     { name: 'Inventory', path: '/admin/inventory', icon: <Package size={20} /> },
     { name: 'Semesters & Labs', path: '/admin/semesters', icon: <Calendar size={20} /> },
     { name: 'Batches', path: '/admin/batches', icon: <Users size={20} /> },
