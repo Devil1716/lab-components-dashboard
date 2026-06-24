@@ -1,0 +1,22 @@
+@import "tailwindcss";
+
+@theme {
+  --color-amity-blue: #032B5A;
+  --color-amity-yellow: #FFC107;
+  --color-amity-dark: #121212;
+  --color-amity-gray: #F3F4F6;
+  --color-amity-text: #333333;
+}
+
+@layer base {
+  body {
+    @apply bg-amity-gray text-amity-text antialiased;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Ensure no gradients and flat UI */
+* {
+  background-image: none !important;
+}
