@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { ComponentService } from '../services/ComponentService';
-import { InMemoryComponentRepository } from '../repositories/inmemory/InMemoryComponentRepository';
+import { SQLiteComponentRepository } from '../repositories/sqlite/SQLiteComponentRepository';
 
-const componentRepo = new InMemoryComponentRepository();
+const componentRepo = new SQLiteComponentRepository();
 const componentService = new ComponentService(componentRepo);
 
 export class ComponentController {

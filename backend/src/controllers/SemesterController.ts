@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { SemesterService } from '../services/SemesterService';
-import { InMemorySemesterRepository } from '../repositories/inmemory/InMemorySemesterRepository';
+import { SQLiteSemesterRepository } from '../repositories/sqlite/SQLiteSemesterRepository';
 
-const semesterRepo = new InMemorySemesterRepository();
+const semesterRepo = new SQLiteSemesterRepository();
 const semesterService = new SemesterService(semesterRepo);
 
 export class SemesterController {

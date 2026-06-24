@@ -27,6 +27,14 @@ import componentRoutes from './routes/componentRoutes';
 import issueRoutes from './routes/issueRoutes';
 import labRoutes from './routes/labRoutes';
 import batchRoutes from './routes/batchRoutes';
+import { getDB } from './config/database';
+
+// Initialize Database
+getDB().then(() => {
+  console.log('SQLite Database Initialized successfully.');
+}).catch(err => {
+  console.error('Failed to initialize SQLite Database:', err);
+});
 
 app.use('/api/semesters', semesterRoutes);
 app.use('/api/components', componentRoutes);

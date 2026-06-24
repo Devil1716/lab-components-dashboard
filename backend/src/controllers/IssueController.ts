@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import { IssueService } from '../services/IssueService';
-import { InMemoryIssueRepository } from '../repositories/inmemory/InMemoryIssueRepository';
-import { InMemoryComponentRepository } from '../repositories/inmemory/InMemoryComponentRepository';
-import { InMemoryFineRepository } from '../repositories/inmemory/InMemoryFineRepository';
+import { SQLiteIssueRepository } from '../repositories/sqlite/SQLiteIssueRepository';
+import { SQLiteComponentRepository } from '../repositories/sqlite/SQLiteComponentRepository';
+import { SQLiteFineRepository } from '../repositories/sqlite/SQLiteFineRepository';
 
-const issueRepo = new InMemoryIssueRepository();
-const componentRepo = new InMemoryComponentRepository();
-const fineRepo = new InMemoryFineRepository();
+const issueRepo = new SQLiteIssueRepository();
+const componentRepo = new SQLiteComponentRepository();
+const fineRepo = new SQLiteFineRepository();
 const issueService = new IssueService(issueRepo, componentRepo, fineRepo);
 
 export class IssueController {

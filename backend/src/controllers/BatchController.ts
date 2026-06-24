@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { BatchService } from '../services/BatchService';
-import { InMemoryBatchRepository } from '../repositories/inmemory/InMemoryBatchRepository';
+import { SQLiteBatchRepository } from '../repositories/sqlite/SQLiteBatchRepository';
 
-const batchRepo = new InMemoryBatchRepository();
+const batchRepo = new SQLiteBatchRepository();
 const batchService = new BatchService(batchRepo);
 
 export class BatchController {

@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { LabService } from '../services/LabService';
-import { InMemoryLabRepository } from '../repositories/inmemory/InMemoryLabRepository';
+import { SQLiteLabRepository } from '../repositories/sqlite/SQLiteLabRepository';
 
-const labRepo = new InMemoryLabRepository();
+const labRepo = new SQLiteLabRepository();
 const labService = new LabService(labRepo);
 
 export class LabController {
