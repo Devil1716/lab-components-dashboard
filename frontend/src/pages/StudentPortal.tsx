@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { apiClient } from '../api';
-import { Search, Package, AlertCircle } from 'lucide-react';
+import { Search, Package } from 'lucide-react';
 
 const StudentPortal: React.FC = () => {
   const [studentId, setStudentId] = useState('');

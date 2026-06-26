@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Routes, Route, Link, Navigate } from 'react-router-dom';
 import AdminLayout from './components/AdminLayout';
 import DashboardPage from './pages/admin/DashboardPage';
 import InventoryPage from './pages/admin/InventoryPage';
@@ -8,9 +9,8 @@ import SemesterLabPage from './pages/admin/SemesterLabPage';
 import FrontDeskPortal from './pages/admin/FrontDeskPortal';
 import StudentPortal from './pages/StudentPortal';
 import LoginPage from './pages/LoginPage';
-import { Navigate } from 'react-router-dom';
 
-const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
   const token = localStorage.getItem('token');
   if (!token) {
     return <Navigate to="/login" replace />;
