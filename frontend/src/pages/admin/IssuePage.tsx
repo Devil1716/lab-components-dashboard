@@ -115,7 +115,7 @@ const IssuePage: React.FC = () => {
                   <div className="text-xs text-gray-500">Available: {comp.available_quantity}</div>
                 </div>
                 <button 
-                  onClick={() => handleAddItem(comp.id)}
+                  onClick={() => handleAddItem(comp.id!)}
                   disabled={comp.available_quantity === 0}
                   className="bg-amity-blue text-white p-1 rounded-sm disabled:bg-gray-300"
                 >

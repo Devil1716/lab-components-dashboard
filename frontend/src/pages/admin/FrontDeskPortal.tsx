@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Package, CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
-import { BatchAPI } from '../../api/batchApi';
-import type { LabBatch } from '../../api/batchApi';
+import { CheckCircle, AlertCircle, RefreshCw } from 'lucide-react';
 import { ComponentAPI } from '../../api/componentApi';
 import type { Component } from '../../api/componentApi';
 import { IssueAPI } from '../../api/issueApi';
@@ -11,7 +9,6 @@ const FrontDeskPortal: React.FC = () => {
   const [transactions, setTransactions] = useState<any[]>([]);
   const [components, setComponents] = useState<Component[]>([]);
   const [loading, setLoading] = useState(false);
-  const [batchDetails, setBatchDetails] = useState<LabBatch | null>(null);
 
   // Issuance State
   const [showIssueForm, setShowIssueForm] = useState(false);
@@ -53,7 +50,7 @@ const FrontDeskPortal: React.FC = () => {
   const handleIssueSubmit = async () => {
     if (!batchId || selectedItems.length === 0) return;
     try {
-      const tx = await IssueAPI.create({
+      await IssueAPI.create({
         transaction: {
           semester_id: 'SEM-1', // Assuming for now, ideally fetch from batch
           lab_id: 'LAB-1',      // Assuming for now

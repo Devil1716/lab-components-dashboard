@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Download, FileText } from 'lucide-react';
+import { Download, FileText, FileDown } from 'lucide-react';
 import * as XLSX from 'xlsx';
 import { IssueAPI } from '../../api/issueApi';
 import type { IssueTransaction } from '../../api/issueApi';
@@ -82,12 +82,20 @@ const ReportsPage: React.FC = () => {
           </h2>
           <p className="text-sm text-gray-500 mt-1">View and export all component issuance and return logs.</p>
         </div>
-        <button 
-          onClick={exportToExcel}
-          className="bg-green-600 text-white px-4 py-2 rounded-sm shadow-sm hover:bg-green-700 transition flex items-center gap-2 font-medium"
-        >
-          <Download size={18} /> Export to Excel
-        </button>
+        <div className="flex gap-4">
+          <button 
+            onClick={() => window.open('http://localhost:5000/api/reports/pdf', '_blank')}
+            className="bg-red-600 text-white px-4 py-2 rounded-sm shadow-sm hover:bg-red-700 transition flex items-center gap-2 font-medium"
+          >
+            <FileDown size={18} /> Download PDF
+          </button>
+          <button 
+            onClick={exportToExcel}
+            className="bg-green-600 text-white px-4 py-2 rounded-sm shadow-sm hover:bg-green-700 transition flex items-center gap-2 font-medium"
+          >
+            <Download size={18} /> Export to Excel
+          </button>
+        </div>
       </div>
 
       <div className="bg-white rounded-sm shadow-sm border border-gray-200 overflow-hidden">

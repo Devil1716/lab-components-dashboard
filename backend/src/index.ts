@@ -27,6 +27,9 @@ import componentRoutes from './routes/componentRoutes';
 import issueRoutes from './routes/issueRoutes';
 import labRoutes from './routes/labRoutes';
 import batchRoutes from './routes/batchRoutes';
+import authRoutes from './routes/authRoutes';
+import studentRoutes from './routes/studentRoutes';
+import reportsRoutes from './routes/reportsRoutes';
 import { getDB } from './config/database';
 
 // Initialize Database
@@ -41,6 +44,9 @@ app.use('/api/components', componentRoutes);
 app.use('/api/issues', issueRoutes);
 app.use('/api/labs', labRoutes);
 app.use('/api/batches', batchRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/students', studentRoutes);
+app.use('/api/reports', reportsRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

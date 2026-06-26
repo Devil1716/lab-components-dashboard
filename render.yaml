@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: amity-lab-backend
+    env: docker
+    dockerfilePath: backend/Dockerfile
+    dockerContext: backend
+    plan: free
+    healthCheckPath: /api/health
+    disk:
+      name: sqlite-data
+      mountPath: /app/database.sqlite # Must match where the DB is created in the Docker container
+      sizeGB: 1
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: JWT_SECRET
+        generateValue: true

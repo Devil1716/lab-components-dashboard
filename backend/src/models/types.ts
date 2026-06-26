@@ -106,3 +106,11 @@ export interface AuditLog {
   description: string;
   created_at: string;
 }
+
+export interface AdminUser {
+  id?: string;
+  email: string;
+  password_hash: string;
+  role: 'superadmin' | 'faculty' | 'staff';
+  created_at?: string;
+}

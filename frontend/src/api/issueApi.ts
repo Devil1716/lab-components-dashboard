@@ -10,6 +10,7 @@ export interface IssueTransaction {
   issued_at?: string;
   issue_status: 'pending_acknowledgment' | 'acknowledged';
   return_status: 'pending' | 'returned' | 'fine_pending' | 'fine_paid';
+  items?: IssueTransactionItem[];
 }
 
 export interface IssueTransactionItem {

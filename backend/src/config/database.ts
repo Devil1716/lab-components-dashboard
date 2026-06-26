@@ -89,6 +89,13 @@ export const getDB = async (): Promise<Database> => {
       FOREIGN KEY(batch_id) REFERENCES batches(id),
       FOREIGN KEY(transaction_id) REFERENCES issue_transactions(id)
     );
+    CREATE TABLE IF NOT EXISTS admin_users (
+      id TEXT PRIMARY KEY,
+      email TEXT UNIQUE NOT NULL,
+      password_hash TEXT NOT NULL,
+      role TEXT NOT NULL,
+      created_at TEXT NOT NULL
+    );
   `);
 
   return dbInstance;

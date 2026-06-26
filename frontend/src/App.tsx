@@ -6,6 +6,17 @@ import ReportsPage from './pages/admin/ReportsPage';
 import BatchPage from './pages/admin/BatchPage';
 import SemesterLabPage from './pages/admin/SemesterLabPage';
 import FrontDeskPortal from './pages/admin/FrontDeskPortal';
+import StudentPortal from './pages/StudentPortal';
+import LoginPage from './pages/LoginPage';
+import { Navigate } from 'react-router-dom';
+
+const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
 
 function App() {
   return (
@@ -27,15 +38,18 @@ function App() {
                 <div className="flex flex-col space-y-4">
                   <Link to="/admin" className="bg-amity-blue text-white px-6 py-3 rounded-sm font-medium hover:bg-blue-900 transition flex items-center justify-center shadow-sm">Admin Dashboard</Link>
                   <Link to="/admin/front-desk" className="bg-amity-yellow text-amity-blue px-6 py-3 rounded-sm font-medium hover:bg-yellow-500 transition flex items-center justify-center shadow-sm">Lab Operations Desk</Link>
+                  <Link to="/student" className="bg-gray-100 text-gray-700 px-6 py-3 rounded-sm font-medium hover:bg-gray-200 transition flex items-center justify-center shadow-sm border border-gray-300">Student Portal</Link>
                 </div>
               </div>
             </main>
           </div>
         } />
 
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/student" element={<StudentPortal />} />
 
         {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
+        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
           <Route index element={<DashboardPage />} />
           <Route path="inventory" element={<InventoryPage />} />
           <Route path="semesters" element={<SemesterLabPage />} />

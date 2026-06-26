@@ -3,7 +3,7 @@ import { LabAPI } from '../../api/labApi';
 import type { Lab } from '../../api/labApi';
 import { BatchAPI } from '../../api/batchApi';
 import type { LabBatch } from '../../api/batchApi';
-import { Plus, Trash2, Users } from 'lucide-react';
+import { Trash2, Users } from 'lucide-react';
 
 const BatchPage: React.FC = () => {
   const [labs, setLabs] = useState<Lab[]>([]);
