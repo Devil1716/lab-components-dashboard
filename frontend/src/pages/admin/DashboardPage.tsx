@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Package, Users, Calendar, AlertTriangle } from 'lucide-react';
+import { Package, Users, Calendar, AlertTriangle, TrendingUp } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { ComponentAPI } from '../../api/componentApi';
 import { BatchAPI } from '../../api/batchApi';
 import { SemesterAPI } from '../../api/semesterApi';
@@ -12,7 +13,8 @@ const DashboardPage: React.FC = () => {
     activeSemesters: 0,
     pendingReturns: 0
   });
-
+  
+  const [chartData, setChartData] = useState<{name: string, issues: number}[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,6 +28,20 @@ const DashboardPage: React.FC = () => {
         ]);
 
         const activeTx = transactions.filter(t => t.return_status !== 'returned').length;
+
+        const componentCounts: Record<string, number> = {};
+        transactions.forEach(tx => {
+          tx.items?.forEach(item => {
+            componentCounts[item.component_id] = (componentCounts[item.component_id] || 0) + item.quantity_issued;
+          });
+        });
+
+        const topComponents = Object.entries(componentCounts)
+          .map(([name, count]) => ({ name, issues: count }))
+          .sort((a, b) => b.issues - a.issues)
+          .slice(0, 6);
+
+        setChartData(topComponents);
 
         setStats({
           totalComponents: components.length,
@@ -96,9 +112,35 @@ const DashboardPage: React.FC = () => {
         </div>
       )}
 
-      {/* Placeholder for future charts/graphs */}
-      <div className="bg-white p-6 rounded-sm shadow-sm border border-gray-200 h-64 flex items-center justify-center">
-        <p className="text-gray-400 italic">Component Issuance Analytics Chart (Coming Soon)</p>
+      {/* Analytics Chart */}
+      <div className="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+        <h3 className="text-lg font-bold text-gray-800 mb-6 flex items-center gap-2">
+          <TrendingUp size={20} className="text-amity-blue" />
+          Most Borrowed Components
+        </h3>
+        <div className="h-80 w-full">
+          {chartData.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={chartData}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E5E7EB" />
+                <XAxis dataKey="name" axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 12}} dy={10} />
+                <YAxis axisLine={false} tickLine={false} tick={{fill: '#6B7280', fontSize: 12}} />
+                <Tooltip 
+                  cursor={{fill: '#F3F4F6'}}
+                  contentStyle={{ borderRadius: '4px', border: 'none', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)' }}
+                />
+                <Bar dataKey="issues" fill="#002147" radius={[4, 4, 0, 0]} barSize={40} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full flex items-center justify-center">
+              <p className="text-gray-400 italic">No issuance data available yet to generate charts.</p>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
